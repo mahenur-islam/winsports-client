@@ -2,32 +2,41 @@
 import React, { useContext } from 'react';
 import { Button, Checkbox, Label, TextInput } from 'flowbite-react';
 import SocialLogin from '../components/SocialLogin/SocialLogin';
-// import useAuth from '../hooks/useAuth';
 import toast from 'react-hot-toast';
 import { AuthContext } from '../provider/AuthProvider';
+import { useNavigate } from 'react-router-dom';
 
 const Signup = () => {
-  const { createUser } = useContext(AuthContext);
+  const { createUser, handleUpdateProfile } = useContext(AuthContext);
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
 
-    // get field values
     const name = event.target.name.value;
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    // validation
     if (password.length < 6) {
       toast.error('Password must be at least 6 characters');
       return;
     }
 
-    // create a new user
     createUser(email, password)
-      .then((res) => console.log(res.user))
-      .catch((error) => console.log(error));
-  }
+      .then((res) => {
+        handleUpdateProfile(name, null)
+          .then(() => {
+            toast.success('User created successfully');
+            navigate('/');
+          })
+          .catch((error) => {
+            toast.error(error.message);
+          });
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
+  };
 
   return (
     <div>

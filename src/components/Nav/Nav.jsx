@@ -1,5 +1,5 @@
 import React from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import { Navbar, Avatar, Button, Dropdown } from "flowbite-react";
 import "../Nav/Navbar.css";
 import useAuth from "../../hooks/useAuth";
@@ -25,7 +25,8 @@ function Nav() {
         <div className="flex md:order-2 gap-4">
           {/* Showing Avatar */}
          {
-          user?.email ? <div>
+          user?.email ? <div className="flex justify-center items-center gap-2 font-semibold text-gray-500">
+          <h1>{user.displayName}</h1>
           <Dropdown
             label={
               <Avatar
@@ -43,7 +44,7 @@ function Nav() {
                 {user.email}
               </span>
             </Dropdown.Header>
-            <Dropdown.Item>Dashboard</Dropdown.Item>
+            <Dropdown.Item>Edit Profile</Dropdown.Item>
             <Dropdown.Item>Settings</Dropdown.Item>
             <Dropdown.Item>Earnings</Dropdown.Item>
             <Dropdown.Divider />
@@ -52,27 +53,20 @@ function Nav() {
           </div> : 
           <div className="flex gap-2">
           <Button color="light">
-            <NavLink to="/login">Login</NavLink>
+            <Link to="/login">Login</Link>
           </Button>
           <Button color="info">
-            <NavLink to="/signup">Sign Up</NavLink>
+            <Link to="/signup">Sign Up</Link>
           </Button>
 
           </div>
          }
 
-          {/* <Button color="light">
-            <NavLink to="/login">Login</NavLink>
-          </Button>
-          <Button color="info">
-            <NavLink to="/signup">Sign Up</NavLink>
-          </Button> */}
-
           <Navbar.Toggle />
         </div>
         <Navbar.Collapse>
           {navLinks.map((link) => (
-            <NavLink key={link.to} to={link.to} className="block px-4 py-2">
+            <NavLink key={link.to} to={link.to} className="block px-4 py-2 a">
               {link.text}
             </NavLink>
           ))}

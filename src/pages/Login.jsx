@@ -1,11 +1,13 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
 import SocialLogin from "../components/SocialLogin/SocialLogin";
 import useAuth from "../hooks/useAuth";
+import toast from "react-hot-toast";
 
 const Login = () => {
   const { signIn } = useAuth();
+  const navigate = useNavigate();
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -22,8 +24,13 @@ const Login = () => {
 
     // create a new user
     signIn(email, password)
-      .then((res) => console.log(res.user))
-      .catch((error) => console.log(error));
+      .then((res) => {
+        toast.success("user created successfully");
+        navigate("/");
+      })
+      .catch((error) => {
+        toast.error(error.message);
+      });
   };
   return (
     <div>

@@ -1,17 +1,26 @@
-import React, { useContext } from "react";
-import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-import { AuthContext } from "../../provider/AuthProvider";
+// SocialLogin.js
+import React, { useContext } from 'react';
+import { Button } from 'flowbite-react';
+import { AuthContext } from '../../provider/AuthProvider';
+import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const SocialLogin = () => {
+  const { googleLogIn, githubLogIn } = useContext(AuthContext);
+  const navigate = useNavigate();
 
-    const { googleLogIn } = useContext(AuthContext);
-    
-   //handle Social login 
-   const handleSocialLogIn = (media) =>{
+  // handle Social login
+  const handleSocialLogIn = (media) => {
     media()
-    .then(res => console.log(res))
-    .catch(error => console.log(error));
-   }
+    .then((res) => {
+      toast.success("user created successfully");
+      navigate("/");
+    })
+    .catch((error) => {
+      toast.error(error.message);
+    });
+  };
+
   return (
     <div>
       <div className="flex justify-center items-center mt-5">
@@ -23,8 +32,8 @@ const SocialLogin = () => {
         <Button outline gradientDuoTone="purpleToBlue" onClick={() => handleSocialLogIn(googleLogIn)}>
           Google
         </Button>
-        <Button outline gradientDuoTone="purpleToBlue">
-          Facebook
+        <Button outline gradientDuoTone="purpleToBlue" onClick={() => handleSocialLogIn(githubLogIn)}>
+          GitHub
         </Button>
       </div>
     </div>
