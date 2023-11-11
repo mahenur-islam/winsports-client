@@ -4,15 +4,20 @@ import { getAuth } from "firebase/auth";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
+
+const all =  import.meta.env;
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCUSBMuOi51eSwmBkgpz5s5Z-PXvgBc2-w",
-  authDomain: "winsports-client-auth.firebaseapp.com",
-  projectId: "winsports-client-auth",
-  storageBucket: "winsports-client-auth.appspot.com",
-  messagingSenderId: "104804809421",
-  appId: "1:104804809421:web:188e9d0da1e3b882f60784"
+  apiKey: all.VITE_apiKey,
+  authDomain: all.VITE_authDomain,
+  projectId: all.VITE_projectId ,
+  storageBucket: all.VITE_storageBucket,
+  messagingSenderId: all.VITE_messagingSenderId,
+  appId: all.VITE_appId,
 };
+
+console.log(firebaseConfig);
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);

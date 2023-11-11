@@ -2,15 +2,18 @@ import { Outlet } from "react-router-dom";
 import Nav from "../components/Nav/Nav";
 import Foot from "../components/Footer/Footer";
 import { Toaster } from "react-hot-toast";
-const Root = () => {
+
+const Layout = () => {
   return (
-    <div className="relative">
-      <Nav></Nav>
-      <Outlet></Outlet>
-      <Foot className="absolute bottom-0"></Foot>
-      <Toaster/>
+    <div className="flex flex-col min-h-screen">
+      <Nav />
+      <div className="flex-1">
+        <Outlet />
+      </div>
+      <Foot />
+      <Toaster />
     </div>
   );
 };
 
-export default Root;
+export default Layout;
