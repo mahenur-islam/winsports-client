@@ -1,16 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { Button, Checkbox, Label, TextInput } from "flowbite-react";
-
-
+import SocialLogin from "../components/SocialLogin/SocialLogin";
+import useAuth from "../hooks/useAuth";
 
 const Login = () => {
+  const { signIn } = useAuth();
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+
+    // get field values
+    const email = event.target.email.value;
+    const password = event.target.password.value;
+
+    // validation
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters");
+      return;
+    }
+
+    // create a new user
+    signIn(email, password)
+      .then((res) => console.log(res.user))
+      .catch((error) => console.log(error));
+  };
   return (
     <div>
-      {/* <div className="max-w-md">
-        <img src="https://i.ibb.co/p0fq94m/undraw-Access-account-re-8spm.png" alt='login-illustration'/>
-      </div> */}
-      <form className="flex max-w-md flex-col gap-4 mx-auto mt-10 shadow-xl p-5 my-20 rounded-md">
+      <form
+        className="flex max-w-md flex-col gap-4 mx-auto mt-10 shadow-xl p-5 my-20 rounded-md"
+        onSubmit={handleSubmit}
+      >
         <div>
           <h1 className="text-xl font-bold mb-2">Login Now!</h1>
           <p className="text-gray-600">
@@ -28,14 +48,15 @@ const Login = () => {
             id="email1"
             type="email"
             placeholder="name@flowbite.com"
+            name="email"
             required
           />
         </div>
         <div>
           <div className="mb-2 block">
-            <Label htmlFor="password1" value="Password" />
+            <Label htmlFor="password" value="Password" />
           </div>
-          <TextInput id="password1" type="password" required />
+          <TextInput id="password" type="password" name="password" required />
         </div>
         <div className="flex items-center gap-2">
           <Checkbox id="remember" />
@@ -44,19 +65,7 @@ const Login = () => {
         <Button type="submit" className="bg-[#053B50] ">
           Login
         </Button>
-        <div className="flex justify-center items-center mt-5">
-        <div className="h-[1px] w-20 bg-gray-300"></div>
-        <h1 className="mx-5">or login with</h1>
-        <div className="h-[1px] w-20 bg-gray-300"></div>
-        </div>
-        <div className="grid grid-cols-2 gap-5 mb-5">
-          <Button outline gradientDuoTone="purpleToBlue">
-            Google
-          </Button>
-          <Button outline gradientDuoTone="purpleToBlue">
-            Facebook
-          </Button>
-        </div>
+        <SocialLogin />
       </form>
     </div>
   );

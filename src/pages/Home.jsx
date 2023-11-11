@@ -1,11 +1,12 @@
 import Banner from '../components/Banner/Banner';
-import React from 'react';
+import React, { useState } from 'react';
 import RecentBlog from '../components/RecentBlog/RecentBlog';
 import Categories from '../components/Categories/Categories';
 import Newsletter from '../components/Newsletter/Newsletter';
 
 const Home = () => {
-    return (
+
+    return ( 
         <div>
             <Banner></Banner>
             <RecentBlog></RecentBlog>

@@ -1,3 +1,6 @@
+import { useEffect, useState } from "react";
+import Category from "../Category/Category";
+
 const Categories = () => {
   const categoryStyle = {
     backgroundImage:
@@ -5,19 +8,29 @@ const Categories = () => {
     backgroundSize: "cover",
     backgroundPosition: "center center",
   };
+
+  const [categories, setCategories] =useState([]);
+
+  useEffect(()=>{
+    fetch('http://localhost:5000/category')
+    .then(res => res.json())
+    .then(data => setCategories(data))
+  },[])
   return (
     <div>
       <h1>Categories</h1>
-      <div
-        className="relative w-40 h-40 md:w-64 md:h-64 bg-black rounded-full mt-10 mx-auto"
-        style={categoryStyle}
-      >
-        <div className="absolute z-10 top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-black">
-          <h1 className="text-3xl font-bold">Cricket</h1>
-        </div>
+      <h1>Categories: {categories.length}</h1>
+
+      <div className="flex my-10">
+        {
+          categories.map(category => <Category key={category.category_id} category={category} categoryStyle={categoryStyle}/>
+          )
+        }
       </div>
-    </div>
+      </div>
   );
 };
 
 export default Categories;
+
+
