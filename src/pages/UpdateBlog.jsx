@@ -1,91 +1,79 @@
-import React, { useState, useEffect } from 'react';
-import toast from 'react-hot-toast';
-import { useLoaderData } from 'react-router-dom';
+import React from "react";
+import { useLoaderData } from "react-router-dom";
+import { useState } from "react";
+import toast from "react-hot-toast";
 
 const UpdateBlog = () => {
   const singleBlog = useLoaderData();
-  const [title, setTitle] = useState('');
-  const [shortDescription, setShortDescription] = useState('');
-  const [content, setContent] = useState('');
-  const [category, setCategory] = useState('');
+  console.log(singleBlog);
+
+  const [title, setTitle] = useState("");
+  const [shortDescription, setShortDescription] = useState("");
+  const [content, setContent] = useState("");
+  const [category, setCategory] = useState("");
   const [images, setImages] = useState([]);
   const [imagePreviewUrls, setImagePreviewUrls] = useState([]);
 
-  useEffect(() => {
-    // Set initial values when the component mounts
-    if (singleBlog) {
-      setTitle(singleBlog.title || '');
-      setShortDescription(singleBlog.shortDescription || '');
-      setContent(singleBlog.content || '');
-      setCategory(singleBlog.category || '');
-      // Assuming images are stored as an array in your database
-      setImages(singleBlog.images || []);
-      setImagePreviewUrls(
-        singleBlog.images
-          ? singleBlog.images.map((image) => URL.createObjectURL(image))
-          : []
-      );
-    }
-  }, [singleBlog]);
+  const handleTitleChange = (e) => {
+    setTitle(e.target.value);
+  };
 
-  const handleTitleChange = (e) => setTitle(e.target.value);
-  const handleShortDescriptionChange = (e) =>
+  const handleShortDescriptionChange = (e) => {
     setShortDescription(e.target.value);
-  const handleContentChange = (e) => setContent(e.target.value);
-  const handleCategoryChange = (e) => setCategory(e.target.value);
+  };
+
+  const handleContentChange = (e) => {
+    setContent(e.target.value);
+  };
+
+  const handleCategoryChange = (e) => {
+    setCategory(e.target.value);
+  };
 
   const handleImageChange = (e) => {
     const selectedImages = Array.from(e.target.files);
-    const imagePreviewList = selectedImages.map((image) =>
-      URL.createObjectURL(image)
-    );
+
     setImages(selectedImages);
-    setImagePreviewUrls(imagePreviewList);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Check if singleBlog and singleBlog._id are available
-    if (!singleBlog || !singleBlog._id) {
-      toast.error('Blog ID not available');
-      return;
-    }
-
+    // Perform your logic to submit the form, e.g., send data to a server
     const updatedBlog = {
-      title,
-      shortDescription,
-      content,
-      category,
-      images,
-      imagePreviewUrls,
+      title: title,
+      shortDescription: shortDescription,
+      content: content,
+      category: category,
+      images: images,
+      imagePreviewUrls: imagePreviewUrls,
     };
 
-    // Make a PUT request to update the blog
-    fetch(`http://localhost:5000/blogs/${singleBlog._id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedBlog),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.acknowledged) {
-          toast.success('Blog updated successfully');
-        } else {
-          toast.error('There is an error. Cannot update the blog');
-        }
-      });
-
+    // console.log(myBlog);
     // Clear form fields after submission
-    setTitle('');
-    setShortDescription('');
-    setContent('');
-    setCategory('');
+    setTitle("");
+    setShortDescription("");
+    setContent("");
+    setCategory("");
     setImages([]);
     setImagePreviewUrls([]);
+
+       // Make a PUT request to update the blog
+    fetch(`http://localhost:5000/blogs/${singleBlog._id}`, {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(updatedBlog),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+          if (data.acknowledged) {
+            toast.success('Blog updated successfully');
+          } else {
+            toast.error('There is an error. Cannot update the blog');
+          }
+        });
   };
 
   return (

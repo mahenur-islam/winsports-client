@@ -8,7 +8,7 @@ const navLinks = [
   { to: "/", text: "Home" },
   { to: "/addblog", text: "Add Blog" },
   { to: "/allblog", text: "All Blog" },
-  { to: "/updateblog", text: "Update Blog" },
+  { to: "/wishlist", text: "Wishlist " },
   { to: "/featuredblog", text: "Featured Blog" },
 ];
 

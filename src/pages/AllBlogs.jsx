@@ -10,6 +10,7 @@ const AllBlogs = () => {
   const blogs = useLoaderData();
   console.log(blogs);
   const [updatedBlogs, setUpdatedBlogs] = useState(blogs);
+  const [wishlistBlogs, setWishlistBlogs] = useState([]);
 
   //delete a blog
   const handleDelete = (_id) => {
@@ -28,7 +29,29 @@ const AllBlogs = () => {
           toast.success("Blog deleted successfully");
         }
       });
+
+    
   };
+
+     // Function to add a blog to the wishlist
+     const addToWishlist = async (blogId) => {
+        try {
+            const response = await fetch(`http://localhost:5000/wishlist/${blogId}`, {
+                method: 'POST',
+            });
+
+            if (response.ok) {
+                toast.success('Blog added to wishlist');
+                // You might want to refresh the wishlist or update its state
+                // depending on your overall architecture
+            } else {
+                toast.error('Failed to add blog to wishlist');
+            }
+        } catch (error) {
+            console.error(error);
+            toast.error('Error adding blog to wishlist');
+        }
+    };
   return (
     <div>
       <Categories></Categories>
@@ -45,7 +68,8 @@ const AllBlogs = () => {
                 {blog.shortDescription}
               </p>
               <Button onClick={() => handleDelete(blog._id)}>Delete</Button>
-                <Link to={`/blogs/${blog._id}`}><Button>Update</Button></Link>
+                <Link to={`/blogs/${blog._id}`}><Button>Update blog</Button></Link>
+                <Button onClick={()=> addToWishlist(blog._id)}>Add to wishlist</Button>
             </Card>
           ))}
         </div>
