@@ -29,10 +29,12 @@ const routes = createBrowserRouter([
         {
           path: "/allblog",
           element: <PrivateRoute><AllBlogs></AllBlogs></PrivateRoute>,
+          loader: ()=>fetch(`http://localhost:5000/blogs`)
         },
         {
-          path: "/updateblog",
+          path: "/blogs/:id",
           element: <UpdateBlog></UpdateBlog>,
+          loader: ({params}) => fetch(`http://localhost:5000/blogs/${params.id}`)
         },
         {
           path: "/wishlist",

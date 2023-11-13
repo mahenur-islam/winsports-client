@@ -17,11 +17,27 @@ const Signup = () => {
     const email = event.target.email.value;
     const password = event.target.password.value;
 
-    if (password.length < 6) {
-      toast.error('Password must be at least 6 characters');
-      return;
-    }
 
+    //password validation
+    if (password.length < 6) {
+        toast.error('Password must be at least 6 characters');
+        return;
+      }
+  
+      if (!/[A-Z]/.test(password)) {
+        toast.error('Password must contain at least one capital letter');
+        return;
+      }
+  
+      if (!/[!@#$%^&*(),.?":{}|<>]/.test(password)) {
+        toast.error('Password must contain at least one special character');
+        return;
+      }
+  
+      if (!/\d/.test(password)) {
+        toast.error('Password must contain at least one numeric character');
+        return;
+      }
     createUser(email, password)
       .then((res) => {
         handleUpdateProfile(name, null)
