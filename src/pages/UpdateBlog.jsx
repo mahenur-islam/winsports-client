@@ -1,18 +1,17 @@
-import React from "react";
-import { useLoaderData } from "react-router-dom";
-import { useState } from "react";
-import toast from "react-hot-toast";
+// UpdateBlog.js
+import React, { useState } from 'react';
+import { useLoaderData } from 'react-router-dom';
+import toast from 'react-hot-toast';
 
 const UpdateBlog = () => {
   const singleBlog = useLoaderData();
   console.log(singleBlog);
 
-  const [title, setTitle] = useState("");
-  const [shortDescription, setShortDescription] = useState("");
-  const [content, setContent] = useState("");
-  const [category, setCategory] = useState("");
-  const [images, setImages] = useState([]);
-  const [imagePreviewUrls, setImagePreviewUrls] = useState([]);
+  const [title, setTitle] = useState(singleBlog?.title || '');
+  const [shortDescription, setShortDescription] = useState(singleBlog?.shortDescription || '');
+  const [content, setContent] = useState(singleBlog?.content || '');
+  const [category, setCategory] = useState(singleBlog?.category || '');
+  const [photoUrl, setPhotoUrl] = useState(singleBlog?.photoUrl || '');
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -30,50 +29,39 @@ const UpdateBlog = () => {
     setCategory(e.target.value);
   };
 
-  const handleImageChange = (e) => {
-    const selectedImages = Array.from(e.target.files);
-
-    setImages(selectedImages);
+  const handlePhotoUrlChange = (e) => {
+    setPhotoUrl(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
     // Perform your logic to submit the form, e.g., send data to a server
     const updatedBlog = {
       title: title,
       shortDescription: shortDescription,
       content: content,
       category: category,
-      images: images,
-      imagePreviewUrls: imagePreviewUrls,
+      photoUrl: photoUrl,
     };
 
-    // console.log(myBlog);
-    // Clear form fields after submission
-    setTitle("");
-    setShortDescription("");
-    setContent("");
-    setCategory("");
-    setImages([]);
-    setImagePreviewUrls([]);
-
-       // Make a PUT request to update the blog
+    // Make a PUT request to update the blog
     fetch(`http://localhost:5000/blogs/${singleBlog._id}`, {
-        method: 'PUT',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(updatedBlog),
-      })
-        .then((res) => res.json())
-        .then((data) => {
-            console.log(data);
-          if (data.acknowledged) {
-            toast.success('Blog updated successfully');
-          } else {
-            toast.error('There is an error. Cannot update the blog');
-          }
-        });
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(updatedBlog),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success('Blog updated successfully');
+        } else {
+          toast.error('There is an error. Cannot update the blog');
+        }
+      });
   };
 
   return (
@@ -81,47 +69,39 @@ const UpdateBlog = () => {
       <div>
         <form onSubmit={handleSubmit} className="p-5">
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">
-              Title:
-            </label>
+            <label className="block text-sm font-medium text-gray-600">Title:</label>
             <input
               type="text"
               onChange={handleTitleChange}
-              defaultValue={singleBlog?.title}
+              value={title}
               className="mt-1 p-2 border rounded-md w-full"
               required
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">
-              Short Description:
-            </label>
+            <label className="block text-sm font-medium text-gray-600">Short Description:</label>
             <textarea
               onChange={handleShortDescriptionChange}
-              defaultValue={singleBlog?.shortDescription}
+              value={shortDescription}
               className="mt-1 p-2 border rounded-md w-full"
               required
             ></textarea>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">
-              Content:
-            </label>
+            <label className="block text-sm font-medium text-gray-600">Content:</label>
             <textarea
-              defaultValue={singleBlog?.content}
               onChange={handleContentChange}
+              value={content}
               className="mt-1 p-2 border rounded-md w-full"
               required
             ></textarea>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">
-              Category:
-            </label>
+            <label className="block text-sm font-medium text-gray-600">Category:</label>
             <select
               id="selectOption"
-              defaultValue={category}
               onChange={handleCategoryChange}
+              value={category}
             >
               <option value="">Select an option</option>
               <option value="Soccer">Option 1</option>
@@ -133,26 +113,14 @@ const UpdateBlog = () => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">
-              Images:
-            </label>
+            <label className="block text-sm font-medium text-gray-600">Photo URL:</label>
             <input
-              type="file"
-              accept="image/*"
-              multiple
-              onChange={handleImageChange}
+              type="text"
+              onChange={handlePhotoUrlChange}
+              value={photoUrl}
               className="mt-1 p-2 border rounded-md w-full"
+              required
             />
-            <div className="mt-2 flex">
-              {imagePreviewUrls.map((url, index) => (
-                <img
-                  key={index}
-                  src={url}
-                  alt={`Preview ${index + 1}`}
-                  className="mr-2 max-w-20 max-h-20"
-                />
-              ))}
-            </div>
           </div>
           <button
             type="submit"

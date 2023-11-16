@@ -10,6 +10,7 @@ import FeaturedBlog from "../pages/FeaturedBlog";
 import Login from "../pages/Login";
 import Signup from "../pages/Signup";
 import PrivateRoute from "./PrivateRoute";
+import BlogDetails from "../components/BlogDetails.js/BlogDetails";
 
 
 const routes = createBrowserRouter([
@@ -35,6 +36,11 @@ const routes = createBrowserRouter([
           path: "/blogs/:id",
           element: <UpdateBlog></UpdateBlog>,
           loader: ({params}) => fetch(`http://localhost:5000/blogs/${params.id}`)
+        },
+        {
+          path: "/blogs/:id/details",
+          element: <BlogDetails></BlogDetails>,
+          loader: ({ params }) => fetch(`http://localhost:5000/blogs/${params.id}`)
         },
         {
           path: "/wishlist",

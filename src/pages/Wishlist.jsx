@@ -35,7 +35,6 @@ const Wishlist = () => {
                 <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-5xl mx-auto mb-20">
                     {wishlist.map((blog) => (
                         <div key={blog._id}>
-                            {/* Display wishlist item details as needed */}
                             <p>{blog.title}</p>
                         </div>
                     ))}

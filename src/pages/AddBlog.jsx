@@ -5,10 +5,10 @@ import toast from 'react-hot-toast';
 const AddBlog = () => {
   const [title, setTitle] = useState('');
   const [shortDescription, setShortDescription] = useState('');
-  const [content, setContent] = useState('');
+  const [details, setdetails] = useState('');
   const [category, setCategory] = useState('');
-  const [images, setImages] = useState([]);
-  const [imagePreviewUrls, setImagePreviewUrls] = useState([]);
+  const [image, setimage] = useState('');
+  const [currentTime, setCurrentTime] = useState('');
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -18,71 +18,73 @@ const AddBlog = () => {
     setShortDescription(e.target.value);
   };
 
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
+  const handledetailsChange = (e) => {
+    setdetails(e.target.value);
   };
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
   };
 
-  const handleImageChange = (e) => {
-    const selectedImages = Array.from(e.target.files);
+  const handleimageChange = (e) => {
+    setimage(e.target.value);
+  };
 
-    // Display image preview
-    const imagePreviewList = selectedImages.map((image) => URL.createObjectURL(image));
-    setImagePreviewUrls(imagePreviewList);
-
-    setImages(selectedImages);
+  const getCurrentTime = () => {
+    const now = new Date();
+    setCurrentTime(now.toLocaleString());
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+
+    // Set the current time before submitting
+    getCurrentTime();
+
     // Perform your logic to submit the form, e.g., send data to a server
     const myBlog = {
       title: title,
       shortDescription: shortDescription,
-      content: content,
+      details: details,
       category: category,
-      images: images,
-      imagePreviewUrls:imagePreviewUrls,
-    }
+      image: image,
+      currentTime: currentTime, // Include the current time in the blog data
+    };
 
-    console.log(myBlog);
     // Clear form fields after submission
     setTitle('');
     setShortDescription('');
-    setContent('');
+    setdetails('');
     setCategory('');
-    setImages([]);
-    setImagePreviewUrls([]);
+    setimage('');
 
-
-
-    //fetch to post data
+    // Fetch to post data
     fetch('http://localhost:5000/blogs', {
-      method:"POST",
+      method: 'POST',
       headers: {
-        "Content-Type": "application/json",
+        'details-Type': 'application/json',
       },
-      body: JSON.stringify(myBlog)
-
+      body: JSON.stringify(myBlog),
     })
-    .then(res => res.json())
-    .then(data => {
-      console.log(data);
-      if(data.acknowledged){
-        toast.success('data added successfully')
-      }else{
-        toast.error('there is an error. Can not add data');
-      }
-    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        if (data.acknowledged) {
+          toast.success('Data added successfully');
+        } else {
+          toast.error('There is an error. Cannot add data');
+        }
+      })
+      .catch((error) => {
+        console.error('Error:', error);
+        toast.error('An error occurred while submitting the form');
+      });
   };
 
   return (
     <div className="max-w-2xl mx-auto mt-8 p-4 bg-white shadow-xl rounded mb-10">
       <h2 className="text-2xl font-bold mb-4 text-center">Add Blog Post</h2>
-      <form onSubmit={handleSubmit} className='p-5'>
+      <form onSubmit={handleSubmit} className="p-5">
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Title:</label>
           <input
@@ -103,10 +105,10 @@ const AddBlog = () => {
           ></textarea>
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">Content:</label>
+          <label className="block text-sm font-medium text-gray-600">details:</label>
           <textarea
-            value={content}
-            onChange={handleContentChange}
+            value={details}
+            onChange={handledetailsChange}
             className="mt-1 p-2 border rounded-md w-full"
             required
           ></textarea>
@@ -114,38 +116,34 @@ const AddBlog = () => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Category:</label>
           <select
-              id="selectOption"
-              defaultValue={category}
-              onChange={handleCategoryChange}
-            >
-              <option value="">Select an option</option>
-              <option value="Soccer">Option 1</option>
-              <option value="Cricket">Option 2</option>
-              <option value="Car Racing">Option 3</option>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
-            </select>
+            id="selectOption"
+            defaultValue={category}
+            onChange={handleCategoryChange}
+          >
+            <option value="">Select an option</option>
+            <option value="Soccer">Option 1</option>
+            <option value="Cricket">Option 2</option>
+            <option value="Car Racing">Option 3</option>
+          </select>
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">Images:</label>
+          <label className="block text-sm font-medium text-gray-600">Photo URL:</label>
           <input
-            type="file"
-            accept="image/*"
-            multiple
-            onChange={handleImageChange}
+            type="text"
+            value={image}
+            onChange={handleimageChange}
             className="mt-1 p-2 border rounded-md w-full"
+            required
           />
-          <div className="mt-2 flex">
-            {imagePreviewUrls.map((url, index) => (
-              <img
-                key={index}
-                src={url}
-                alt={`Preview ${index + 1}`}
-                className="mr-2 max-w-20 max-h-20"
-              />
-            ))}
-          </div>
+        </div>
+        <div className="mb-4">
+          <label className="block text-sm font-medium text-gray-600">Current Time:</label>
+          <input
+            type="text"
+            value={currentTime}
+            className="mt-1 p-2 border rounded-md w-full"
+            // readOnly
+          />
         </div>
         <button
           type="submit"

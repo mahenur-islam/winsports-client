@@ -1,7 +1,7 @@
 import React from "react";
 import { NavLink, Link } from "react-router-dom";
 import { Navbar, Avatar, Button, Dropdown } from "flowbite-react";
-import "../Nav/Navbar.css";
+// import "../Nav/Navbar.css";
 import useAuth from "../../hooks/useAuth";
 
 const navLinks = [
