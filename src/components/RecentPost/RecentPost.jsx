@@ -1,27 +1,51 @@
-// RecentPosts.js
-import React from 'react';
+import { Button, Card } from "flowbite-react";
+import useAddToWishList from "../../hooks/useAddToWishList";
+import { Link } from "react-router-dom";
 
 const RecentPost = ({ blogs }) => {
-  // Check if blogs is defined and is an array
+  console.log(blogs);
   if (!Array.isArray(blogs)) {
-    // Handle the case where blogs is not an array (e.g., not yet loaded)
     return <p>Loading...</p>;
   }
 
-  // Sort blogs by current time in descending order
-  const sortedBlogs = [...blogs].sort((a, b) => new Date(b.currentTime) - new Date(a.currentTime));
+  const sortedBlogs = [...blogs].sort(
+    (a, b) => new Date(b.currentTime) - new Date(a.currentTime)
+  );
+  console.log(sortedBlogs);
 
+  const addToWishList = useAddToWishList(); // Correct import and use
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4">Recent Posts</h2>
-      <ul>
+      <ul className="max-w-7xl my-10 mx-auto p-5 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
         {sortedBlogs.map((blog) => (
-          <li key={blog._id}>
-            <h3>{blog.title}</h3>
-            <p>{blog.shortDescription}</p>
-            <p>Category: {blog.category}</p>
-            <p>Current Time: {blog.currentTime}</p>
-          </li>
+          <div key={blog._id}>
+            <Card className="max-w-sm my-5 mx-2 shadow-xl">
+              <img
+                src={blog.image}
+                alt={blog.title}
+                className="w-full rounded-md"
+              />
+              <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                {blog.title}
+              </h5>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                {blog.shortDescription}
+              </p>
+              <p className="font-normal text-gray-700 dark:text-gray-400">
+                {blog.category}
+              </p>
+              <Link to={`/blogs/${blog._id}/details`}>
+                <Button>Show Details</Button>
+              </Link>
+              <Button
+                className="outline"
+                onClick={() => addToWishList(blog._id)}
+              >
+                Add to wishlist
+              </Button>
+            </Card>
+          </div>
         ))}
       </ul>
     </div>

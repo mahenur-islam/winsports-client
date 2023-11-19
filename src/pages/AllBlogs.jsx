@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Categories from "../components/Categories/Categories";
 import { useLoaderData, Link } from "react-router-dom";
-import toast from "react-hot-toast";
 import BlogCard from "../components/blogCard/blogCard";
-// import RecentPost from "../components/RecentPost/RecentPost";
+import Cover from "../components/Cover/Cover";
+import useAddToWishList from "../hooks/useAddToWishList";
+
 
 const AllBlogs = () => {
   const blogs = useLoaderData();
-  const [updatedBlogs, setUpdatedBlogs] = useState(blogs);
   const [searchQuery, setSearchQuery] = useState('');
+  const [updatedBlogs, setUpdatedBlogs] = useState(blogs);
+  const addToWishList = useAddToWishList();
 
   // delete a blog
   const handleDelete = (_id) => {
@@ -26,23 +28,6 @@ const AllBlogs = () => {
       });
   };
 
-  // Function to add a blog to the wishlist
-  const addToWishlist = async (blogId) => {
-    try {
-      const response = await fetch(`http://localhost:5000/wishlist/${blogId}`, {
-        method: "POST",
-      });
-
-      if (response.ok) {
-        toast.success("Blog added to wishlist");
-      } else {
-        toast.error("Failed to add blog to wishlist");
-      }
-    } catch (error) {
-      console.error(error);
-      toast.error("Error adding blog to wishlist");
-    }
-  };
 
   // Update the search query and filter blogs accordingly
   const handleSearch = (e) => {
@@ -55,10 +40,10 @@ const AllBlogs = () => {
 
   return (
     <div>
+     <Cover image="https://i.ibb.co/YD4Ntx8/pexels-torsten-dettlaff-102448.jpg"></Cover>
       <Categories></Categories>
       <div>
         <h1 className="text-center mb-10">All blogs</h1>
-        {/* Search input */}
         <input
           type="text"
           value={searchQuery}
@@ -66,13 +51,12 @@ const AllBlogs = () => {
           placeholder="Search by blog name"
           className="p-2 mb-4 border rounded-md"
         />
-        {/* <RecentPost blogs={blogs} /> */}
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-5xl mx-auto mb-20">
           {updatedBlogs.map((blog) => (
             <BlogCard
               key={blog._id}
               blog={blog}
-              addToWishlist={addToWishlist}
+              addToWishlist={addToWishList}
               handleDelete={handleDelete}
             ></BlogCard>
           ))}

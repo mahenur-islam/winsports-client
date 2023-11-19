@@ -5,12 +5,12 @@ import { Toaster } from "react-hot-toast";
 
 const Layout = () => {
   return (
-    <div className="flex flex-col min-h-screen">
+    <div className="flex flex-col min-h-screen ">
       <Nav />
       <div className="flex-1">
         <Outlet />
       </div>
-      <Foot />
+      <Foot  />
       <Toaster />
     </div>
   );

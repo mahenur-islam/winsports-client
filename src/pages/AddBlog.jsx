@@ -1,68 +1,52 @@
-// AddBlog.js
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
 const AddBlog = () => {
-  const [title, setTitle] = useState('');
-  const [shortDescription, setShortDescription] = useState('');
-  const [details, setdetails] = useState('');
-  const [category, setCategory] = useState('');
-  const [image, setimage] = useState('');
-  const [currentTime, setCurrentTime] = useState('');
+  const [blogData, setBlogData] = useState({
+    title: '',
+    shortDescription: '',
+    details: '',
+    category: '',
+    image: '',
+    currentTime: '',
+  });
 
-  const handleTitleChange = (e) => {
-    setTitle(e.target.value);
-  };
-
-  const handleShortDescriptionChange = (e) => {
-    setShortDescription(e.target.value);
-  };
-
-  const handledetailsChange = (e) => {
-    setdetails(e.target.value);
-  };
-
-  const handleCategoryChange = (e) => {
-    setCategory(e.target.value);
-  };
-
-  const handleimageChange = (e) => {
-    setimage(e.target.value);
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setBlogData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   const getCurrentTime = () => {
     const now = new Date();
-    setCurrentTime(now.toLocaleString());
+    setBlogData((prevData) => ({
+      ...prevData,
+      currentTime: now.toLocaleString(),
+    }));
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    // Set the current time before submitting
     getCurrentTime();
 
-    // Perform your logic to submit the form, e.g., send data to a server
-    const myBlog = {
-      title: title,
-      shortDescription: shortDescription,
-      details: details,
-      category: category,
-      image: image,
-      currentTime: currentTime, // Include the current time in the blog data
-    };
+    const myBlog = { ...blogData };
 
     // Clear form fields after submission
-    setTitle('');
-    setShortDescription('');
-    setdetails('');
-    setCategory('');
-    setimage('');
+    setBlogData({
+      title: '',
+      shortDescription: '',
+      details: '',
+      category: '',
+      image: '',
+      currentTime: '',
+    });
 
-    // Fetch to post data
     fetch('http://localhost:5000/blogs', {
       method: 'POST',
       headers: {
-        'details-Type': 'application/json',
+        'Content-Type': 'application/json',
       },
       body: JSON.stringify(myBlog),
     })
@@ -89,8 +73,9 @@ const AddBlog = () => {
           <label className="block text-sm font-medium text-gray-600">Title:</label>
           <input
             type="text"
-            value={title}
-            onChange={handleTitleChange}
+            name="title"
+            value={blogData.title}
+            onChange={handleChange}
             className="mt-1 p-2 border rounded-md w-full"
             required
           />
@@ -98,17 +83,19 @@ const AddBlog = () => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Short Description:</label>
           <textarea
-            value={shortDescription}
-            onChange={handleShortDescriptionChange}
+            name="shortDescription"
+            value={blogData.shortDescription}
+            onChange={handleChange}
             className="mt-1 p-2 border rounded-md w-full"
             required
           ></textarea>
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">details:</label>
+          <label className="block text-sm font-medium text-gray-600">Details:</label>
           <textarea
-            value={details}
-            onChange={handledetailsChange}
+            name="details"
+            value={blogData.details}
+            onChange={handleChange}
             className="mt-1 p-2 border rounded-md w-full"
             required
           ></textarea>
@@ -116,22 +103,26 @@ const AddBlog = () => {
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Category:</label>
           <select
-            id="selectOption"
-            defaultValue={category}
-            onChange={handleCategoryChange}
+            name="category"
+            value={blogData.category}
+            onChange={handleChange}
           >
             <option value="">Select an option</option>
-            <option value="Soccer">Option 1</option>
-            <option value="Cricket">Option 2</option>
-            <option value="Car Racing">Option 3</option>
+            <option value="Soccer">Soccer</option>
+            <option value="Cricket">Cricket</option>
+            <option value="Tennis">Tennis</option>
+            <option value="Racing">Racing</option>
+            <option value="American Football">American Football</option>
+            <option value="Boxing">Boxing</option>
           </select>
         </div>
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Photo URL:</label>
           <input
             type="text"
-            value={image}
-            onChange={handleimageChange}
+            name="image"
+            value={blogData.image}
+            onChange={handleChange}
             className="mt-1 p-2 border rounded-md w-full"
             required
           />
@@ -140,16 +131,17 @@ const AddBlog = () => {
           <label className="block text-sm font-medium text-gray-600">Current Time:</label>
           <input
             type="text"
-            value={currentTime}
+            name="currentTime"
+            value={blogData.currentTime}
             className="mt-1 p-2 border rounded-md w-full"
-            // readOnly
+            readOnly
           />
         </div>
         <button
           type="submit"
-          className="bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
+          className="p-2 rounded-md hover:bg-[#053B50]"
         >
-          Submit
+          Add Blog
         </button>
       </form>
     </div>

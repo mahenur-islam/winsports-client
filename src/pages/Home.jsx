@@ -5,12 +5,12 @@ import RecentPost from '../components/RecentPost/RecentPost';
 
 
 
+
 const Home = () => {
 
     const [recentBlogs, setRecentBlogs] = useState([]);
 
     useEffect(() => {
-      // Fetch recent blogs when the component mounts
       fetch('http://localhost:5000/blogs')
         .then((response) => response.json())
         .then((data) => setRecentBlogs(data))

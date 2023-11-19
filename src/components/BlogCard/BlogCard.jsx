@@ -2,7 +2,6 @@
 import { Button, Card } from "flowbite-react";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
-// import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
 const BlogCard = ({ blog, addToWishlist, handleDelete }) => {
   const {_id , title, shortDescription, details, category, image, currentTime } =
