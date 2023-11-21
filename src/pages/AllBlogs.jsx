@@ -1,14 +1,12 @@
 import React, { useState } from "react";
-import Categories from "../components/Categories/Categories";
+// import Categories from "../components/Categories/Categories";
 import { useLoaderData, Link } from "react-router-dom";
 import BlogCard from "../components/blogCard/blogCard";
-import Cover from "../components/Cover/Cover";
 import useAddToWishList from "../hooks/useAddToWishList";
-
 
 const AllBlogs = () => {
   const blogs = useLoaderData();
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [updatedBlogs, setUpdatedBlogs] = useState(blogs);
   const addToWishList = useAddToWishList();
 
@@ -28,7 +26,6 @@ const AllBlogs = () => {
       });
   };
 
-
   // Update the search query and filter blogs accordingly
   const handleSearch = (e) => {
     setSearchQuery(e.target.value);
@@ -40,17 +37,19 @@ const AllBlogs = () => {
 
   return (
     <div>
-     <Cover image="https://i.ibb.co/YD4Ntx8/pexels-torsten-dettlaff-102448.jpg"></Cover>
-      <Categories></Categories>
-      <div>
-        <h1 className="text-center mb-10">All blogs</h1>
-        <input
-          type="text"
-          value={searchQuery}
-          onChange={handleSearch}
-          placeholder="Search by blog name"
-          className="p-2 mb-4 border rounded-md"
-        />
+      <div className="bg-gray-400 py-10">
+        <div className="flex flex-col justify-center items-center w-full">
+          <h1 className="mb-2">All Blogs</h1>
+          <input
+            type="text"
+            value={searchQuery}
+            onChange={handleSearch}
+            placeholder="Search by blog name"
+            className="p-2 border rounded-md w-96 mb-10"
+          />
+        </div>
+        {/* <Categories></Categories> */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-5xl mx-auto mb-20">
           {updatedBlogs.map((blog) => (
             <BlogCard
@@ -58,7 +57,7 @@ const AllBlogs = () => {
               blog={blog}
               addToWishlist={addToWishList}
               handleDelete={handleDelete}
-            ></BlogCard>
+             className="mx-auto"></BlogCard>
           ))}
         </div>
       </div>

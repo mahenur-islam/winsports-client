@@ -104,12 +104,12 @@ const UpdateBlog = () => {
               value={category}
             >
               <option value="">Select an option</option>
-              <option value="Soccer">Option 1</option>
-              <option value="Cricket">Option 2</option>
-              <option value="Car Racing">Option 3</option>
-              <option value="option1">Option 1</option>
-              <option value="option2">Option 2</option>
-              <option value="option3">Option 3</option>
+              <option value="Soccer">Soccer</option>
+              <option value="Cricket">Cricket</option>
+              <option value="Car Racing">Car Racing</option>
+              <option value="option1">Americal Football</option>
+              <option value="option2">Tennis</option>
+              <option value="option3">Boxing</option>
             </select>
           </div>
           <div className="mb-4">

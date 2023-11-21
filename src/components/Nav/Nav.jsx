@@ -23,7 +23,7 @@ function Nav() {
       >
         <Navbar.Brand href="https://flowbite-react.com">
           <h1 className="text-3xl font-bold italic">
-            Win-<span className="text-white">Sports</span>
+            Win-<span className="text-[#035B50]">Sports</span>
           </h1>
         </Navbar.Brand>
         <div className="flex md:order-2 gap-4">

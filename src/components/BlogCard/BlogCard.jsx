@@ -1,35 +1,44 @@
 // import React, { useEffect, useState } from "react";
 import { Button, Card } from "flowbite-react";
-import { MdDelete } from "react-icons/md";
-import { FaEdit } from "react-icons/fa";
+import { MdDelete, MdAddCard } from "react-icons/md";
+import { FaEdit, FaBookReader } from "react-icons/fa";
 import { Link } from "react-router-dom";
 const BlogCard = ({ blog, addToWishlist, handleDelete }) => {
-  const {_id , title, shortDescription, details, category, image, currentTime } =
-    blog;
+  const {
+    _id,
+    title,
+    shortDescription,
+    details,
+    category,
+    image,
+    currentTime,
+  } = blog;
   return (
     <div>
       <div>
-        <Card className="max-w-sm" key={_id}>
-          <img src={image} alt=""/>
-          <h5 className="text-xl font-bold tracking-tight text-gray-900 dark:text-white">
-            {title}
+        <Card
+          className="max-w-xl"
+          imgAlt="Meaningful alt text for an image that is not purely decorative"
+          imgSrc={image}
+        >
+          <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+            Noteworthy technology acquisitions 2021
           </h5>
-          <h5 className="tracking-tight text-gray-400 dark:text-white">
-            {category}
-          </h5>
-          <p className="font-normal text-gray-700 dark:text-gray-400">
-            {shortDescription}
-          </p>
-         <MdDelete onClick={() => handleDelete(blog._id)}  className="hover:cursor-pointer hover:text-red-500 text-xl"/>
-          <Link to={`/blogs/${blog._id}`}>
-          <FaEdit className="hover:text-cyan-600 text-xl"/>
-          </Link>
-          <Button onClick={() => addToWishlist(blog._id)}>
-            Add to wishlist
-          </Button>
-          <Link to={`/blogs/${blog._id}/details`}>
-            <Button>Show Details</Button>
-          </Link>
+          <div className="flex flex-wrap gap-5">
+            <MdDelete
+              onClick={() => handleDelete(blog._id)}
+              className="text-2xl w-30 hover:bg-[#053B50] hover:text-white hover:p-1 hover:rounded-full"
+            />
+            <Link to={`/blogs/${blog._id}`}>
+              <FaEdit  className="text-2xl hover:bg-[#053B50] hover:text-white hover:p-1 hover:rounded-full" />
+            </Link>
+            <Link onClick={() => addToWishlist(blog._id)}>
+              <MdAddCard  className="text-2xl hover:bg-[#053B50] hover:text-white hover:p-1 hover:rounded-full"/>
+            </Link>
+            <Link to={`/blogs/${blog._id}/details`}>
+              <FaBookReader className="text-2xl hover:bg-[#053B50] hover:text-white hover:p-1 hover:rounded-full" />
+            </Link>
+          </div>
         </Card>
       </div>
     </div>

@@ -66,8 +66,8 @@ const AddBlog = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto mt-8 p-4 bg-white shadow-xl rounded mb-10">
-      <h2 className="text-2xl font-bold mb-4 text-center">Add Blog Post</h2>
+    <div className="max-w-2xl mx-auto rounded-lg shadow-xl">
+      <h2 className="text-2xl font-bold text-center py-5">Add Blog Post</h2>
       <form onSubmit={handleSubmit} className="p-5">
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Title:</label>
@@ -139,7 +139,7 @@ const AddBlog = () => {
         </div>
         <button
           type="submit"
-          className="p-2 rounded-md hover:bg-[#053B50]"
+          className="outline p-2 rounded-md text-[#053B50] bg-white hover:bg-[#053B50] hover:text-white"
         >
           Add Blog
         </button>
