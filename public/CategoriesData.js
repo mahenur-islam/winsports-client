@@ -1,10 +1,14 @@
-import { GiSoccerBall, GiThrowingBall, GiBoxingGlove  } from "react-icons/gi";
+import { GiSoccerBall, GiThrowingBall, GiBoxingGlove, GiAmericanFootballPlayer  } from "react-icons/gi";
 import { IoTennisballOutline } from "react-icons/io5";
 import { FaFootballBall } from "react-icons/fa";
 import { FaCarBurst } from "react-icons/fa6";
 
 
 export const categories = [
+    {
+        label : 'All',
+        icon: GiAmericanFootballPlayer 
+    },
     {
         label : 'Soccer',
         icon: GiSoccerBall
@@ -18,7 +22,7 @@ export const categories = [
         icon: IoTennisballOutline
     },
     {
-        label : 'American Football',
+        label : 'Rugby',
         icon: FaFootballBall
     },
     {

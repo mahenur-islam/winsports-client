@@ -1,15 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Categories from "../components/Categories/Categories";
-import { useLoaderData, Link } from "react-router-dom";
+import { useLoaderData, useSearchParams } from "react-router-dom";
 import BlogCard from "../components/blogCard/blogCard";
 import useAddToWishList from "../hooks/useAddToWishList";
 import toast from "react-hot-toast";
+import Heading from "../components/Heading/Heading";
+import Empty from "../components/Cover/Empty";
+// import Category from "../components/Category/Category";
 
 const AllBlogs = () => {
   const blogs = useLoaderData();
   const [searchQuery, setSearchQuery] = useState("");
   const [updatedBlogs, setUpdatedBlogs] = useState(blogs);
   const addToWishList = useAddToWishList();
+  const [params, setParams] = useSearchParams();
+  const category = params.get("category");
+
+  useEffect(() => {
+    if (category && category !== "All") {
+      const filterCategory = blogs.filter((blog) => blog.category === category);
+      setUpdatedBlogs(filterCategory);
+    } else {
+      setUpdatedBlogs(blogs);
+    }
+  }, [category, blogs]);
 
   // delete a blog
   const handleDelete = (_id) => {
@@ -38,30 +52,40 @@ const AllBlogs = () => {
 
   return (
     <div>
-      <div>
-        <div className="flex justify-center items-center">
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={handleSearch}
-            placeholder="Search by blog name"
-            className="p-2 mb-4 border rounded-md"
+      {blogs && blogs.length > 0 ? (
+        <div>
+          <div className="flex justify-center items-center">
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={handleSearch}
+              placeholder="Search by blog name"
+              className="p-2 mb-4 border rounded-md"
+            />
+          </div>
+          <Categories></Categories>
+
+          <div className="grid grid-cols-1 md:grid-cols-3  gap-3 max-w-5xl mx-auto mb-20">
+            {updatedBlogs.map((blog) => (
+              <BlogCard
+                key={blog._id}
+                blog={blog}
+                addToWishlist={addToWishList}
+                handleDelete={handleDelete}
+              ></BlogCard>
+            ))}
+          </div>
+        </div>
+      ) : (
+        <div className="felx justify-center items-center mt-10">
+          <Heading
+            title={"No Blogs Found"}
+            subTitle={"Please select other categories"}
+            center
           />
-
+          <div className="w-96  mx-auto"><Empty /></div>
         </div>
-        <Categories></Categories>
-
-        <div className="grid grid-cols-1 md:grid-cols-3  gap-3 max-w-5xl mx-auto mb-20">
-          {updatedBlogs.map((blog) => (
-            <BlogCard
-              key={blog._id}
-              blog={blog}
-              addToWishlist={addToWishList}
-              handleDelete={handleDelete}
-            ></BlogCard>
-          ))}
-        </div>
-      </div>
+      )}
     </div>
   );
 };

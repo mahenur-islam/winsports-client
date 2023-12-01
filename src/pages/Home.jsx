@@ -18,9 +18,11 @@ const Home = () => {
     }, []);
 
     return ( 
-        <div>
+        <div className='space-y-20'>
             <Banner></Banner>
-            <RecentPost blogs={recentBlogs} />
+            {
+                recentBlogs && recentBlogs.length > 0  ? <RecentPost blogs={recentBlogs} /> : ' '
+            }
             <Newsletter></Newsletter>
 
         </div>

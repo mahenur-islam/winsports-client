@@ -1,3 +1,4 @@
+// AddBlog.js
 import React, { useState } from 'react';
 import toast from 'react-hot-toast';
 
@@ -8,7 +9,6 @@ const AddBlog = () => {
     details: '',
     category: '',
     image: '',
-    currentTime: '',
   });
 
   const handleChange = (e) => {
@@ -19,19 +19,16 @@ const AddBlog = () => {
     }));
   };
 
-  const getCurrentTime = () => {
-    const now = new Date();
-    setBlogData((prevData) => ({
-      ...prevData,
-      currentTime: now.toLocaleString(),
-    }));
-  };
-
   const handleSubmit = (e) => {
     e.preventDefault();
-    getCurrentTime();
 
-    const myBlog = { ...blogData };
+    // Get the current date and time
+    const currentTime = new Date().toLocaleString();
+
+    const myBlog = {
+      ...blogData,
+      currentTime: currentTime,
+    };
 
     // Clear form fields after submission
     setBlogData({
@@ -40,7 +37,6 @@ const AddBlog = () => {
       details: '',
       category: '',
       image: '',
-      currentTime: '',
     });
 
     fetch('http://localhost:5000/blogs', {
@@ -106,13 +102,14 @@ const AddBlog = () => {
             name="category"
             value={blogData.category}
             onChange={handleChange}
+            required
           >
             <option value="">Select an option</option>
             <option value="Soccer">Soccer</option>
             <option value="Cricket">Cricket</option>
             <option value="Tennis">Tennis</option>
             <option value="Racing">Racing</option>
-            <option value="American Football">American Football</option>
+            <option value="Rugby">American Football</option>
             <option value="Boxing">Boxing</option>
           </select>
         </div>
@@ -132,14 +129,14 @@ const AddBlog = () => {
           <input
             type="text"
             name="currentTime"
-            value={blogData.currentTime}
+            value={new Date().toLocaleString()}
             className="mt-1 p-2 border rounded-md w-full"
             readOnly
           />
         </div>
         <button
           type="submit"
-          className="outline p-2 rounded-md text-[#053B50] bg-white hover:bg-[#053B50] hover:text-white"
+          className="outline p-2 rounded-md text-[#053B50] bg-white hover:bg-[#053B50] hover:text-white w-full"
         >
           Add Blog
         </button>
