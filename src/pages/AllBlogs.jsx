@@ -1,8 +1,9 @@
 import React, { useState } from "react";
-// import Categories from "../components/Categories/Categories";
+import Categories from "../components/Categories/Categories";
 import { useLoaderData, Link } from "react-router-dom";
 import BlogCard from "../components/blogCard/blogCard";
 import useAddToWishList from "../hooks/useAddToWishList";
+import toast from "react-hot-toast";
 
 const AllBlogs = () => {
   const blogs = useLoaderData();
@@ -37,27 +38,27 @@ const AllBlogs = () => {
 
   return (
     <div>
-      <div className="bg-gray-400 py-10">
-        <div className="flex flex-col justify-center items-center w-full">
-          <h1 className="mb-2">All Blogs</h1>
+      <div>
+        <div className="flex justify-center items-center">
           <input
             type="text"
             value={searchQuery}
             onChange={handleSearch}
             placeholder="Search by blog name"
-            className="p-2 border rounded-md w-96 mb-10"
+            className="p-2 mb-4 border rounded-md"
           />
-        </div>
-        {/* <Categories></Categories> */}
 
-        <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-3 max-w-5xl mx-auto mb-20">
+        </div>
+        <Categories></Categories>
+
+        <div className="grid grid-cols-1 md:grid-cols-3  gap-3 max-w-5xl mx-auto mb-20">
           {updatedBlogs.map((blog) => (
             <BlogCard
               key={blog._id}
               blog={blog}
               addToWishlist={addToWishList}
               handleDelete={handleDelete}
-             className="mx-auto"></BlogCard>
+            ></BlogCard>
           ))}
         </div>
       </div>

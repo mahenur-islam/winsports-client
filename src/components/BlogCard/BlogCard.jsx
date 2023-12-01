@@ -17,13 +17,18 @@ const BlogCard = ({ blog, addToWishlist, handleDelete }) => {
     <div>
       <div>
         <Card
-          className="max-w-xl"
-          imgAlt="Meaningful alt text for an image that is not purely decorative"
-          imgSrc={image}
+          className="max-w-xl group min-h-[60vh]"
         >
+        <img src={image} alt={title} className="group-hover:scale-110 rounded-lg"></img>
           <h5 className="text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
-            Noteworthy technology acquisitions 2021
+            {title}
           </h5>
+          <h5 className="tracking-tight text-gray-500 dark:text-white">
+            {shortDescription}
+          </h5>
+          <p className="text-green-600 font-semibold bg-green-100  dark:text-white">
+            {category}
+          </p>
           <div className="flex flex-wrap gap-5">
             <MdDelete
               onClick={() => handleDelete(blog._id)}

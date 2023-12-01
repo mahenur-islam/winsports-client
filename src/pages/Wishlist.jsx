@@ -68,7 +68,7 @@ const Wishlist = () => {
           {wishlist.map((blog) => (
             <div key={blog._id}>
               <Card
-                className="max-w-sm"
+                className="max-w-sm min-h-[50vh]"
                 imgAlt="Meaningful alt text for an image that is not purely decorative"
                 imgSrc={blog.image}
               >
@@ -82,7 +82,7 @@ const Wishlist = () => {
                   </Button>
                   <Link to={`/blogs/${blog._id}/details`}>
                     <Button className="w-full">
-                      Read more
+                      Read More
                       <FaArrowRight className="ml-1 mt-1" />
                     </Button>
                   </Link>

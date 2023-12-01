@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { useLoaderData } from 'react-router-dom';
 import toast from 'react-hot-toast';
 
-const UpdateBlog = () => {
+const UpdateBlog = ({ onUpdateBlog }) => {
   const singleBlog = useLoaderData();
   console.log(singleBlog);
 
@@ -11,7 +11,7 @@ const UpdateBlog = () => {
   const [shortDescription, setShortDescription] = useState(singleBlog?.shortDescription || '');
   const [content, setContent] = useState(singleBlog?.content || '');
   const [category, setCategory] = useState(singleBlog?.category || '');
-  const [photoUrl, setPhotoUrl] = useState(singleBlog?.photoUrl || '');
+  const [image, setimage] = useState(singleBlog?.image || '');
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -29,20 +29,19 @@ const UpdateBlog = () => {
     setCategory(e.target.value);
   };
 
-  const handlePhotoUrlChange = (e) => {
-    setPhotoUrl(e.target.value);
+  const handleimageChange = (e) => {
+    setimage(e.target.value);
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Perform your logic to submit the form, e.g., send data to a server
     const updatedBlog = {
       title: title,
       shortDescription: shortDescription,
       content: content,
       category: category,
-      photoUrl: photoUrl,
+      image: image,
     };
 
     // Make a PUT request to update the blog
@@ -66,8 +65,14 @@ const UpdateBlog = () => {
 
   return (
     <div>
-      <div>
-        <form onSubmit={handleSubmit} className="p-5">
+      <div className='max-w-7xl'>
+        <div>
+          <h1 className="text-sm md:text-xl lg:text-2xl font-semibold text-left py-10 mt-10">
+            My <span className="text-[#053B50]">Update Your Blog</span>
+            <div className="h-[0.5px]  bg-gray-300 w-full mt-2"></div>
+          </h1>
+        </div>
+        <form onSubmit={handleSubmit} className="p-5 max-w-xl mx-auto">
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-600">Title:</label>
             <input
@@ -83,16 +88,16 @@ const UpdateBlog = () => {
             <textarea
               onChange={handleShortDescriptionChange}
               value={shortDescription}
-              className="mt-1 p-2 border rounded-md w-full"
+              className="mt-1 p-2 border rounded-md w-full focus:h-[300px]"
               required
             ></textarea>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Content:</label>
+            <label className="block text-sm font-medium text-gray-600">Details:</label>
             <textarea
               onChange={handleContentChange}
               value={content}
-              className="mt-1 p-2 border rounded-md w-full"
+              className="mt-1 p-2 border rounded-md w-full  focus:h-[300px]"
               required
             ></textarea>
           </div>
@@ -107,17 +112,17 @@ const UpdateBlog = () => {
               <option value="Soccer">Soccer</option>
               <option value="Cricket">Cricket</option>
               <option value="Car Racing">Car Racing</option>
-              <option value="option1">Americal Football</option>
-              <option value="option2">Tennis</option>
-              <option value="option3">Boxing</option>
+              <option value="American Football">American Football</option>
+              <option value="Tennis">Tennis</option>
+              <option value="Boxing">Boxing</option>
             </select>
           </div>
           <div className="mb-4">
             <label className="block text-sm font-medium text-gray-600">Photo URL:</label>
             <input
-              type="text"
-              onChange={handlePhotoUrlChange}
-              value={photoUrl}
+              type="link"
+              onChange={handleimageChange}
+              value={image}
               className="mt-1 p-2 border rounded-md w-full"
               required
             />

@@ -1,9 +1,12 @@
 import React, { useMemo } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Table } from "flowbite-react";
+import useAuth from "../hooks/useAuth";
 
 const FeaturedBlog = () => {
   const blogs = useLoaderData();
+  const user = useAuth();
+  console.log(user.user);
   // Calculate the word count and sort the blogs
   const sortedBlogs = useMemo(() => {
     return [...blogs].sort((a, b) => {
@@ -21,8 +24,8 @@ const FeaturedBlog = () => {
     <div className="container mx-auto my-8">
       <h2 className="text-3xl font-bold mb-4">Featured Blogs</h2>
       <div className="max-w-7xl mx-auto">
-        <Table hoverable>
-          <Table.Head>
+        <Table hoverable >
+          <Table.Head  >
             <Table.HeadCell>Serial No.</Table.HeadCell>
             <Table.HeadCell>Title</Table.HeadCell>
             <Table.HeadCell>Owner</Table.HeadCell>
