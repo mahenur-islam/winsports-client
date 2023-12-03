@@ -13,14 +13,23 @@ const RecentPost = ({ blogs }) => {
   );
   console.log(sortedBlogs);
 
-  const addToWishList = useAddToWishList(); // Correct import and use
+  const addToWishList = useAddToWishList();
+
+  const truncateText = (text, maxLength) => {
+    return text
+      .split(" ")
+      .slice(0, maxLength)
+      .join(" ");
+  };
+
   return (
     <div>
-      <h2 className="text-2xl font-bold mb-4">Recent Posts</h2>
-      <ul className="max-w-7xl my-10 mx-auto p-5 grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-2">
+      <h2 className="text-2xl font-bold mb-4 text-center md:text-3xl pt-10">Recent Posts</h2>
+      <div className="h-[1px] max-w-xl mx-auto bg-black"></div>
+      <div className="max-w-7xl my-10 mx-auto p-5 grid grid-cols-1 md:grid-cols-3 gap-2">
         {sortedBlogs.map((blog) => (
-          <div key={blog._id}>
-            <Card className="max-w-sm my-5 mx-2 shadow-xl">
+          <div key={blog._id} className="flex">
+            <Card className="w-11/12 my-5 mx-2 shadow-xl flex flex-col justify-between">
               <img
                 src={blog.image}
                 alt={blog.title}
@@ -30,24 +39,26 @@ const RecentPost = ({ blogs }) => {
                 {blog.title}
               </h5>
               <p className="font-normal text-gray-700 dark:text-gray-400">
-                {blog.shortDescription}
+                {truncateText(blog.shortDescription, 30)}
               </p>
-              <p className="font-normal text-gray-700 dark:text-gray-400">
+              <p className="text-blue-500 font-bold dark:text-gray-400 grow">
                 {blog.category}
               </p>
-              <Link to={`/blogs/${blog._id}/details`}>
-                <Button>Show Details</Button>
-              </Link>
-              <Button
-                className="outline"
-                onClick={() => addToWishList(blog._id)}
-              >
-                Add to wishlist
-              </Button>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+                <Link to={`/blogs/${blog._id}/details`}>
+                  <Button className="w-full">Show Details</Button>
+                </Link>
+                <Button
+                  className="outline"
+                  onClick={() => addToWishList(blog._id)}
+                >
+                  Add to wishlist
+                </Button>
+              </div>
             </Card>
           </div>
         ))}
-      </ul>
+      </div>
     </div>
   );
 };

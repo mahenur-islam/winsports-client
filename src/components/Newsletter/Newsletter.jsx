@@ -1,9 +1,9 @@
 import { Banner, Button, Label, TextInput } from 'flowbite-react';
 import toast from 'react-hot-toast';
-import { useState } from 'react'; // Import useState
+import { useState } from 'react'; 
 
 function Newsletter() {
-  const [email, setEmail] = useState(''); // State for the email input
+  const [email, setEmail] = useState('');
 
   const handleSubscribe = (e) => {
     e.preventDefault();
@@ -28,8 +28,8 @@ function Newsletter() {
               type="email"
               placeholder="name@flowbite.com"
               name="email"
-              value={email} // Set the value from state
-              onChange={(e) => setEmail(e.target.value)} // Update the state on change
+              value={email}
+              onChange={(e) => setEmail(e.target.value)} 
              required
             />
             <Button type="submit">

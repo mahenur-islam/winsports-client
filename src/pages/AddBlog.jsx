@@ -1,6 +1,7 @@
 // AddBlog.js
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import toast from 'react-hot-toast';
+import { AuthContext } from '../provider/AuthProvider';
 
 const AddBlog = () => {
   const [blogData, setBlogData] = useState({
@@ -10,6 +11,7 @@ const AddBlog = () => {
     category: '',
     image: '',
   });
+  const { user } = useContext(AuthContext);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,45 +27,53 @@ const AddBlog = () => {
     // Get the current date and time
     const currentTime = new Date().toLocaleString();
 
-    const myBlog = {
-      ...blogData,
-      currentTime: currentTime,
-    };
+    // Check if user information is available
+    if (user) {
+      const myBlog = {
+        ...blogData,
+        currentTime: currentTime,
+        authorName: user.displayName,
+        authorEmail: user.email,
+        authorProfileImage: user.photoURL,
+      };
 
-    // Clear form fields after submission
-    setBlogData({
-      title: '',
-      shortDescription: '',
-      details: '',
-      category: '',
-      image: '',
-    });
-
-    fetch('http://localhost:5000/blogs', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(myBlog),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
-        if (data.acknowledged) {
-          toast.success('Data added successfully');
-        } else {
-          toast.error('There is an error. Cannot add data');
-        }
-      })
-      .catch((error) => {
-        console.error('Error:', error);
-        toast.error('An error occurred while submitting the form');
+      // Clear form fields after submission
+      setBlogData({
+        title: '',
+        shortDescription: '',
+        details: '',
+        category: '',
+        image: '',
       });
+
+      fetch('http://localhost:5000/blogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(myBlog),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.acknowledged) {
+            toast.success('Data added successfully');
+          } else {
+            toast.error('There is an error. Cannot add data');
+          }
+        })
+        .catch((error) => {
+          console.error('Error:', error);
+          toast.error('An error occurred while submitting the form');
+        });
+    } else {
+      toast.error('User information not available');
+    }
   };
 
   return (
-    <div className="max-w-2xl mx-auto rounded-lg shadow-xl">
-      <h2 className="text-2xl font-bold text-center py-5">Add Blog Post</h2>
+    <div className="max-w-2xl mx-auto rounded-lg shadow-xl p-10">
+      <h2 className="text-2xl font-bold text-center">Add Blog Post</h2>
       <form onSubmit={handleSubmit} className="p-5">
         <div className="mb-4">
           <label className="block text-sm font-medium text-gray-600">Title:</label>
@@ -97,7 +107,7 @@ const AddBlog = () => {
           ></textarea>
         </div>
         <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">Category:</label>
+          <label className="block text-sm font-medium text-gray-600 mb-2">Category:</label>
           <select
             name="category"
             value={blogData.category}
@@ -109,7 +119,7 @@ const AddBlog = () => {
             <option value="Cricket">Cricket</option>
             <option value="Tennis">Tennis</option>
             <option value="Racing">Racing</option>
-            <option value="Rugby">American Football</option>
+            <option value="Rugby">Rugby</option>
             <option value="Boxing">Boxing</option>
           </select>
         </div>
@@ -122,16 +132,6 @@ const AddBlog = () => {
             onChange={handleChange}
             className="mt-1 p-2 border rounded-md w-full"
             required
-          />
-        </div>
-        <div className="mb-4">
-          <label className="block text-sm font-medium text-gray-600">Current Time:</label>
-          <input
-            type="text"
-            name="currentTime"
-            value={new Date().toLocaleString()}
-            className="mt-1 p-2 border rounded-md w-full"
-            readOnly
           />
         </div>
         <button

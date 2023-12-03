@@ -3,6 +3,12 @@ import { useLoaderData } from "react-router-dom";
 
 const BlogDetails = () => {
   const blog = useLoaderData();
+   // Split blog details into paragraphs
+   const paragraphs = blog.details.split('\n').map((paragraph, index) => (
+    <p key={index} className="md:text-xl text-gray-700 pb-4">
+      {paragraph}
+    </p>
+  ));
 
   return (
     <div className="w-2/3 mx-auto text-justify mt-10 shadow-2xl shadow-gray-400 p-10">
@@ -17,7 +23,7 @@ const BlogDetails = () => {
       </div>
       <div>
         <h4 className="mt-10 mb-5 text-lg text-left font-semibold text-gray-700">{blog.shortDescription}</h4>
-        <h1 className="md:text-xl text-gray-700 pb-20">{blog.details}</h1>
+        <h1 className="md:text-xl text-gray-700 pb-20">  {paragraphs}</h1>
       </div>
     </div>
   );
@@ -25,8 +31,3 @@ const BlogDetails = () => {
 
 export default BlogDetails;
 
-{
-  /* <h1>{blog.title}</h1>
-      <p>{blog.shortDescription}</p>
-      <p>{blog.details}</p> */
-}

@@ -1,17 +1,19 @@
 // UpdateBlog.js
-import React, { useState } from 'react';
-import { useLoaderData } from 'react-router-dom';
-import toast from 'react-hot-toast';
+import React, { useState } from "react";
+import { useLoaderData } from "react-router-dom";
+import toast from "react-hot-toast";
 
 const UpdateBlog = ({ onUpdateBlog }) => {
   const singleBlog = useLoaderData();
   console.log(singleBlog);
 
-  const [title, setTitle] = useState(singleBlog?.title || '');
-  const [shortDescription, setShortDescription] = useState(singleBlog?.shortDescription || '');
-  const [content, setContent] = useState(singleBlog?.content || '');
-  const [category, setCategory] = useState(singleBlog?.category || '');
-  const [image, setimage] = useState(singleBlog?.image || '');
+  const [title, setTitle] = useState(singleBlog?.title || "");
+  const [shortDescription, setShortDescription] = useState(
+    singleBlog?.shortDescription || ""
+  );
+  const [details, setDetails] = useState(singleBlog?.details || "");
+  const [category, setCategory] = useState(singleBlog?.category || "");
+  const [image, setImage] = useState(singleBlog?.image || "");
 
   const handleTitleChange = (e) => {
     setTitle(e.target.value);
@@ -21,16 +23,16 @@ const UpdateBlog = ({ onUpdateBlog }) => {
     setShortDescription(e.target.value);
   };
 
-  const handleContentChange = (e) => {
-    setContent(e.target.value);
+  const handleDetailsChange = (e) => {
+    setDetails(e.target.value);
   };
 
   const handleCategoryChange = (e) => {
     setCategory(e.target.value);
   };
 
-  const handleimageChange = (e) => {
-    setimage(e.target.value);
+  const handleImageChange = (e) => {
+    setImage(e.target.value);
   };
 
   const handleSubmit = (e) => {
@@ -39,16 +41,16 @@ const UpdateBlog = ({ onUpdateBlog }) => {
     const updatedBlog = {
       title: title,
       shortDescription: shortDescription,
-      content: content,
+      details: details,
       category: category,
       image: image,
     };
 
     // Make a PUT request to update the blog
     fetch(`http://localhost:5000/blogs/${singleBlog._id}`, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
       body: JSON.stringify(updatedBlog),
     })
@@ -56,16 +58,16 @@ const UpdateBlog = ({ onUpdateBlog }) => {
       .then((data) => {
         console.log(data);
         if (data.acknowledged) {
-          toast.success('Blog updated successfully');
+          toast.success("Blog updated successfully");
         } else {
-          toast.error('There is an error. Cannot update the blog');
+          toast.error("There is an error. Cannot update the blog");
         }
       });
   };
 
   return (
     <div>
-      <div className='max-w-7xl'>
+      <div className="max-w-7xl">
         <div>
           <h1 className="text-sm md:text-xl lg:text-2xl font-semibold text-left py-10 mt-10">
             My <span className="text-[#053B50]">Update Your Blog</span>
@@ -74,7 +76,9 @@ const UpdateBlog = ({ onUpdateBlog }) => {
         </div>
         <form onSubmit={handleSubmit} className="p-5 max-w-xl mx-auto">
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Title:</label>
+            <label className="block text-sm font-medium text-gray-600">
+              Title:
+            </label>
             <input
               type="text"
               onChange={handleTitleChange}
@@ -84,7 +88,9 @@ const UpdateBlog = ({ onUpdateBlog }) => {
             />
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Short Description:</label>
+            <label className="block text-sm font-medium text-gray-600">
+              Short Description:
+            </label>
             <textarea
               onChange={handleShortDescriptionChange}
               value={shortDescription}
@@ -93,16 +99,20 @@ const UpdateBlog = ({ onUpdateBlog }) => {
             ></textarea>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Details:</label>
+            <label className="block text-sm font-medium text-gray-600">
+              Details:
+            </label>
             <textarea
-              onChange={handleContentChange}
-              value={content}
+              onChange={handleDetailsChange}
+              value={details}
               className="mt-1 p-2 border rounded-md w-full  focus:h-[300px]"
               required
             ></textarea>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Category:</label>
+            <label className="block text-sm font-medium text-gray-600">
+              Category:
+            </label>
             <select
               id="selectOption"
               onChange={handleCategoryChange}
@@ -118,10 +128,12 @@ const UpdateBlog = ({ onUpdateBlog }) => {
             </select>
           </div>
           <div className="mb-4">
-            <label className="block text-sm font-medium text-gray-600">Photo URL:</label>
+            <label className="block text-sm font-medium text-gray-600">
+              Photo URL:
+            </label>
             <input
               type="link"
-              onChange={handleimageChange}
+              onChange={handleImageChange}
               value={image}
               className="mt-1 p-2 border rounded-md w-full"
               required

@@ -10,8 +10,6 @@ const Categories = () => {
 
   return (
     <div className="max-w-6xl mx-auto">
-      <h1>Categories {categories.length}</h1>
-  
       <div className="flex justify-center items-center gap-3 my-10">
         {
           categories.map(categoryItem => <Category key={categoryItem.icon} categoryItem={categoryItem} selected = {category === categoryItem.label}/>

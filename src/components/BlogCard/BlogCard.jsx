@@ -13,6 +13,7 @@ const BlogCard = ({ blog, addToWishlist, handleDelete }) => {
     image,
     currentTime,
   } = blog;
+  console.log(blog);
   return (
     <div>
       <div>
@@ -26,9 +27,7 @@ const BlogCard = ({ blog, addToWishlist, handleDelete }) => {
           <h5 className="tracking-tight text-gray-500 dark:text-white">
             {shortDescription}
           </h5>
-          <p className="text-green-600 font-semibold bg-green-100  dark:text-white">
-            {category}
-          </p>
+          <p className="text-blue-600 font-bold  w-20 rounded-lg">{category}</p>
           <div className="flex flex-wrap gap-5">
             <MdDelete
               onClick={() => handleDelete(blog._id)}

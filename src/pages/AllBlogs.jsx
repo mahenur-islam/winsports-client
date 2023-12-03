@@ -10,6 +10,7 @@ import Empty from "../components/Cover/Empty";
 
 const AllBlogs = () => {
   const blogs = useLoaderData();
+  console.log(blogs);
   const [searchQuery, setSearchQuery] = useState("");
   const [updatedBlogs, setUpdatedBlogs] = useState(blogs);
   const addToWishList = useAddToWishList();
@@ -51,20 +52,19 @@ const AllBlogs = () => {
   };
 
   return (
-    <div>
-      {blogs && blogs.length > 0 ? (
-        <div>
-          <div className="flex justify-center items-center">
+     <div>
+          <div className="flex flex-col justify-center items-center space-y-5 mt-20">
+          <h1 className="text-2xl md:text-2xl font-semibold">Search Blog...</h1>
             <input
               type="text"
               value={searchQuery}
               onChange={handleSearch}
               placeholder="Search by blog name"
-              className="p-2 mb-4 border rounded-md"
+              className="p-2 mb-4 border rounded-md w-1/2"
             />
           </div>
           <Categories></Categories>
-
+      {updatedBlogs && updatedBlogs.length > 0 ? (
           <div className="grid grid-cols-1 md:grid-cols-3  gap-3 max-w-5xl mx-auto mb-20">
             {updatedBlogs.map((blog) => (
               <BlogCard
@@ -75,7 +75,6 @@ const AllBlogs = () => {
               ></BlogCard>
             ))}
           </div>
-        </div>
       ) : (
         <div className="felx justify-center items-center mt-10">
           <Heading

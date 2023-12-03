@@ -74,7 +74,7 @@ const Wishlist = () => {
               >
               <div>
                 <h3 className="font-semibold text-[#053B50] text-xl text-left mb-1">{blog.title}</h3>
-                <p className="text-gray-700 bg-blue-200 inline rounded-lg px-1">{blog.category}</p>
+                <p className="text-blue-600 font-bold  w-20 rounded-lg">{blog.category}</p>
               </div>
                 <div className="grid grid-cols-1 gap-2">
                   <Button outline onClick={() => handleDelete(blog._id)}>

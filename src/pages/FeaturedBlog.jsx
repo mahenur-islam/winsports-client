@@ -1,13 +1,10 @@
 import React, { useMemo } from "react";
 import { useLoaderData } from "react-router-dom";
 import { Table } from "flowbite-react";
-import useAuth from "../hooks/useAuth";
+// import useAuth from "../hooks/useAuth";
 
 const FeaturedBlog = () => {
   const blogs = useLoaderData();
-  const user = useAuth();
-  console.log(user.user);
-  // Calculate the word count and sort the blogs
   const sortedBlogs = useMemo(() => {
     return [...blogs].sort((a, b) => {
       const wordCountA = a.details.split(/\s+/).length;
@@ -35,7 +32,7 @@ const FeaturedBlog = () => {
             </Table.HeadCell>
           </Table.Head>
           <Table.Body className="divide-y">
-            {sortedBlogs.map((blog, index) => (
+            {sortedBlogs.slice(0,10).map((blog, index) => (
               <Table.Row
                 key={blog._id}
                 className="bg-white dark:border-gray-700 dark:bg-gray-800"
@@ -44,10 +41,10 @@ const FeaturedBlog = () => {
                   {index + 1}
                 </Table.Cell>
                 <Table.Cell>{blog.title}</Table.Cell>
-                <Table.Cell>{blog.owner}</Table.Cell>
+                <Table.Cell>{blog.authorName}</Table.Cell>
                 <Table.Cell>
                   <img
-                    src={blog.ownerProfilePicture}
+                    src={blog.authorProfileImage}
                     alt="Profile"
                     className="w-8 h-8 rounded-full"
                   />
