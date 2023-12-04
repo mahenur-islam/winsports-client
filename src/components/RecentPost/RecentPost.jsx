@@ -1,3 +1,4 @@
+import React from "react";
 import { Button, Card } from "flowbite-react";
 import useAddToWishList from "../../hooks/useAddToWishList";
 import { Link } from "react-router-dom";
@@ -22,12 +23,14 @@ const RecentPost = ({ blogs }) => {
       .join(" ");
   };
 
+  const limitedBlogs = sortedBlogs.slice(0, 6);
+
   return (
     <div>
       <h2 className="text-2xl font-bold mb-4 text-center md:text-3xl pt-10">Recent Posts</h2>
       <div className="h-[1px] max-w-xl mx-auto bg-black"></div>
       <div className="max-w-7xl my-10 mx-auto p-5 grid grid-cols-1 md:grid-cols-3 gap-2">
-        {sortedBlogs.map((blog) => (
+        {limitedBlogs.map((blog) => (
           <div key={blog._id} className="flex">
             <Card className="w-11/12 my-5 mx-2 shadow-xl flex flex-col justify-between">
               <img
@@ -58,6 +61,11 @@ const RecentPost = ({ blogs }) => {
             </Card>
           </div>
         ))}
+      </div>
+      <div className="flex justify-center mt-4">
+        <Link to="/allblog">
+          <Button>Read more ...</Button>
+        </Link>
       </div>
     </div>
   );

@@ -18,7 +18,7 @@ export const categories = [
         icon: GiThrowingBall
     },
     {
-        label : 'Tenis',
+        label : 'Tennis',
         icon: IoTennisballOutline
     },
     {

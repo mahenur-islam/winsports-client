@@ -6,7 +6,7 @@ const Banner = () => {
         <div className="h-[300px] md:h-[500px] lg:h-[600px] relative">
             <Carousel slideInterval={8000}>
                 <div className="relative">
-                    <img src="hhttps://i.ibb.co/7C7wqTc/pexels-mike-1171084.jpg" alt="..." className='w-full'/>
+                    <img src="https://i.ibb.co/7C7wqTc/pexels-mike-1171084.jpg" alt="..." className='w-full'/>
                 </div>
                 <div className="relative">
                     <img src="https://i.ibb.co/rx8qRyt/pexels-tembela-bohle-1884574.jpg" alt="..." className='w-full'/>

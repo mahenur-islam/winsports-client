@@ -1,6 +1,7 @@
 import React from "react";
-import { useLoaderData } from "react-router-dom";
+import { Link, useLoaderData  } from "react-router-dom";
 import Comments from "../Comments/Comments";
+import { Button } from "flowbite-react";
 
 const BlogDetails = () => {
   const blog = useLoaderData();
@@ -31,6 +32,7 @@ const BlogDetails = () => {
           <h1 className="md:text-xl text-gray-700 pb-20"> {paragraphs}</h1>
         </div>
       </div>
+      <Button className="text-center mx-auto"><Link to='/allblog' >Continue to All Blogs</Link></Button>
       <div className="max-w-4xl mx-auto">
       {/* TODO: Comment will show here */}
         Show Comments
@@ -38,6 +40,7 @@ const BlogDetails = () => {
       <div className="max-w-2xl mx-auto mt-10">
         <Comments blog={blog} />
       </div>
+      
     </div>
   );
 };

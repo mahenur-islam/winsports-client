@@ -6,7 +6,8 @@ import useAddToWishList from "../hooks/useAddToWishList";
 import toast from "react-hot-toast";
 import Heading from "../components/Heading/Heading";
 import Empty from "../components/Cover/Empty";
-// import Category from "../components/Category/Category";
+import { FaArrowUp } from "react-icons/fa";
+
 
 const AllBlogs = () => {
   const blogs = useLoaderData();
@@ -51,6 +52,10 @@ const AllBlogs = () => {
     setUpdatedBlogs(filteredBlogs);
   };
 
+  //scroll to top
+  const handleScrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
   return (
      <div>
           <div className="flex flex-col justify-center items-center space-y-5 mt-20">
@@ -85,6 +90,12 @@ const AllBlogs = () => {
           <div className="w-96  mx-auto"><Empty /></div>
         </div>
       )}
+       <button
+        onClick={handleScrollToTop}
+        className="fixed bottom-10 right-10 bg-gray-800 text-white p-3 rounded-full cursor-pointer"
+      >
+        <FaArrowUp />
+      </button>
     </div>
   );
 };
