@@ -3,7 +3,6 @@ import { Card } from "flowbite-react";
 import { MdDelete, MdAddCard } from "react-icons/md";
 import { FaEdit, FaBookReader } from "react-icons/fa";
 import { Link } from "react-router-dom";
-
 const BlogCard = ({ blog, addToWishlist, handleDelete }) => {
   const {
     _id,

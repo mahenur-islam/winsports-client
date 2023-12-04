@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Categories from "../components/Categories/Categories";
 import { useLoaderData, useSearchParams } from "react-router-dom";
-import BlogCard from "../components/blogCard/blogCard";
 import useAddToWishList from "../hooks/useAddToWishList";
 import toast from "react-hot-toast";
 import Heading from "../components/Heading/Heading";
 import Empty from "../components/Cover/Empty";
 import { FaArrowUp } from "react-icons/fa";
+import BlogCard from "../components/BlogCard/BlogCard";
 
 const AllBlogs = () => {
   const blogs = useLoaderData();
