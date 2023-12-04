@@ -47,7 +47,7 @@ const UpdateBlog = ({ onUpdateBlog }) => {
     };
 
     // Make a PUT request to update the blog
-    fetch(`http://localhost:5000/blogs/${singleBlog._id}`, {
+    fetch(`https://winsports-server.vercel.app/blogs/${singleBlog._id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",

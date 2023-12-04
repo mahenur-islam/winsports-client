@@ -29,18 +29,18 @@ const routes = createBrowserRouter([
         },
         {
           path: "/allblog",
-          element: <PrivateRoute><AllBlogs></AllBlogs></PrivateRoute>,
-          loader: ()=>fetch(`http://localhost:5000/blogs`)
+          element: <AllBlogs></AllBlogs>,
+          loader: ()=>fetch(`https://winsports-server.vercel.app/blogs`)
         },
         {
           path: "/blogs/:id",
           element: <UpdateBlog></UpdateBlog>,
-          loader: ({params}) => fetch(`http://localhost:5000/blogs/${params.id}`)
+          loader: ({params}) => fetch(`https://winsports-server.vercel.app/blogs/${params.id}`)
         },
         {
           path: "/blogs/:id/details",
           element: <BlogDetails></BlogDetails>,
-          loader: ({ params }) => fetch(`http://localhost:5000/blogs/${params.id}`)
+          loader: ({ params }) => fetch(`https://winsports-server.vercel.app/blogs/${params.id}`)
         },
         {
           path: "/wishlist",
@@ -49,7 +49,7 @@ const routes = createBrowserRouter([
         {
           path: "/featuredblog",
           element: <FeaturedBlog></FeaturedBlog>,
-          loader: ()=>fetch(`http://localhost:5000/blogs`)
+          loader: ()=>fetch(`https://winsports-server.vercel.app/blogs`)
         },
         {
           path: "/login",

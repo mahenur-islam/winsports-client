@@ -33,16 +33,16 @@ const BlogCard = ({ blog, addToWishlist, handleDelete }) => {
         <div className="flex flex-wrap gap-5 grow">
           <MdDelete
             onClick={() => handleDelete(blog._id)}
-            className="text-2xl w-30 hover:bg-[#053B50] hover:text-white hover:p-1 hover:rounded-full"
+            className="text-2xl w-30 hover:bg-red-400  hover:text-white hover:p-1 hover:rounded-full"
           />
           <Link to={`/blogs/${blog._id}`}>
-            <FaEdit className="text-2xl hover:bg-[#053B50] hover:text-white hover:p-1 hover:rounded-full" />
+            <FaEdit className="text-2xl hover:bg-red-400 hover:text-white hover:p-1 hover:rounded-full" />
           </Link>
           <Link onClick={() => addToWishlist(blog._id)}>
-            <MdAddCard className="text-2xl hover:bg-[#053B50] hover:text-white hover:p-1 hover:rounded-full" />
+            <MdAddCard className="text-2xl hover:bg-red-400 hover:text-white hover:p-1 hover:rounded-full" />
           </Link>
           <Link to={`/blogs/${blog._id}/details`}>
-            <FaBookReader className="text-2xl hover:bg-[#053B50] hover:text-white hover:p-1 hover:rounded-full" />
+            <FaBookReader className="text-2xl hover:bg-red-400 hover:text-white hover:p-1 hover:rounded-full" />
           </Link>
         </div>
       </Card>

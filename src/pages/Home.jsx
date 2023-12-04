@@ -11,7 +11,7 @@ const Home = () => {
     const [recentBlogs, setRecentBlogs] = useState([]);
 
     useEffect(() => {
-      fetch('http://localhost:5000/blogs')
+      fetch('https://winsports-server.vercel.app/blogs')
         .then((response) => response.json())
         .then((data) => setRecentBlogs(data))
         .catch((error) => console.error('Error fetching recent blogs:', error));

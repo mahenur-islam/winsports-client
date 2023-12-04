@@ -56,7 +56,7 @@ function Nav() {
               to={link.to}
               className={({ isActive, isPending }) =>
                       isActive
-                        ? "text-[#64CCC5] font-bold"
+                        ? "text-[#cc6d64] font-bold"
                         : isPending
                         ? "pending"
                         : ""

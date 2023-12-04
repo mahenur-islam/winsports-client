@@ -15,7 +15,7 @@ const Wishlist = () => {
 
   const fetchWishlistData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/wishlist");
+      const response = await fetch("https://winsports-server.vercel.app/wishlist");
       if (response.ok) {
         const data = await response.json();
 
@@ -32,30 +32,10 @@ const Wishlist = () => {
       console.error("Error fetching wishlist data:", error);
     }
   };
-
-  // const handleDelete = (_id) => {
-  //   const URL = `http://localhost:5000/wishlist/${_id}`;
-  //   fetch(URL, {
-  //     method: "DELETE",
-  //   })
-  //     .then((res) => res.json())
-  //     .then((data) => {
-  //       if (data.deletedCount > 0) {
-  //         const filteredData = wishlist.filter((item) => item._id !== _id);
-  //         setWishlist(filteredData);
-  //         toast.success("Blog deleted successfully");
-  //       } else {
-  //         toast.error("Failed to delete blog");
-  //       }
-  //     })
-  //     .catch((error) => {
-  //       console.error("Error deleting blog:", error);
-  //       toast.error("Error deleting blog");
-  //     });
-  // };
+;
 
   const handleDelete = (_id) => {
-    const URL = `http://localhost:5000/wishlist/${_id}`;
+    const URL = `https://winsports-server.vercel.app/wishlist/${_id}`;
     fetch(URL, {
       method: "DELETE",
     })
@@ -75,7 +55,6 @@ const Wishlist = () => {
       });
   };
   
-
   return (
     <div className="max-w-6xl mx-auto">
       <div>

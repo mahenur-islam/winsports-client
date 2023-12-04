@@ -46,7 +46,7 @@ const AddBlog = () => {
         image: '',
       });
 
-      fetch('http://localhost:5000/blogs', {
+      fetch('https://winsports-server.vercel.app/blogs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

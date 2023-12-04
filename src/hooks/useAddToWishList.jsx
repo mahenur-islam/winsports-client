@@ -5,7 +5,7 @@ const useAddToWishList = () => {
   // Function to add a blog to the wishlist
   const addToWishlist = async (blogId) => {
     try {
-      const response = await fetch(`http://localhost:5000/wishlist/${blogId}`, {
+      const response = await fetch(`https://winsports-server.vercel.app/wishlist/${blogId}`, {
         method: "POST",
       });
 
