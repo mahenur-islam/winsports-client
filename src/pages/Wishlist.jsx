@@ -33,6 +33,27 @@ const Wishlist = () => {
     }
   };
 
+  // const handleDelete = (_id) => {
+  //   const URL = `http://localhost:5000/wishlist/${_id}`;
+  //   fetch(URL, {
+  //     method: "DELETE",
+  //   })
+  //     .then((res) => res.json())
+  //     .then((data) => {
+  //       if (data.deletedCount > 0) {
+  //         const filteredData = wishlist.filter((item) => item._id !== _id);
+  //         setWishlist(filteredData);
+  //         toast.success("Blog deleted successfully");
+  //       } else {
+  //         toast.error("Failed to delete blog");
+  //       }
+  //     })
+  //     .catch((error) => {
+  //       console.error("Error deleting blog:", error);
+  //       toast.error("Error deleting blog");
+  //     });
+  // };
+
   const handleDelete = (_id) => {
     const URL = `http://localhost:5000/wishlist/${_id}`;
     fetch(URL, {
@@ -40,19 +61,20 @@ const Wishlist = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.deletedCount > 0) {
+        if (data.success) {
           const filteredData = wishlist.filter((item) => item._id !== _id);
           setWishlist(filteredData);
-          toast.success("Blog deleted successfully");
+          toast.success("Blog removed from wishlist successfully");
         } else {
-          toast.error("Failed to delete blog");
+          toast.error(data.error || "Failed to remove blog from wishlist");
         }
       })
       .catch((error) => {
-        console.error("Error deleting blog:", error);
-        toast.error("Error deleting blog");
+        console.error("Error removing blog from wishlist:", error);
+        toast.error("Error removing blog from wishlist");
       });
   };
+  
 
   return (
     <div className="max-w-6xl mx-auto">

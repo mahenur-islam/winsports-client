@@ -19,7 +19,8 @@ const FeaturedBlog = () => {
 
   return (
     <div className="container mx-auto my-8">
-      <h2 className="text-3xl font-bold mb-4">Featured Blogs</h2>
+      <h2 className="text-3xl font-bold mb-4 text-center">Featured Blogs</h2>
+      <div className="h-[1px] max-w-xl mx-auto bg-black"></div>
       <div className="max-w-7xl mx-auto">
         <Table hoverable >
           <Table.Head  >
